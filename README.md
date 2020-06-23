@@ -1,6 +1,6 @@
 # gossdb
 
-[English Readme](https://gowalker.org/github.com/seefan/gossdb)
+[English Readme](https://gowalker.org/github.com/zut/gossdb)
 ### 功能列表
 
 * 参考官方驱动开发，增加连接池支持，改进协议实现方式，提高了数据吞吐量
@@ -47,7 +47,7 @@
 * AutoClose bool //是否自动回收连接，如果开启后，获取的连接在使用后立即会被回收，所以不要重复使用。
 * Encoding bool //是否开启自动序列化
 
-更多说明请见[这里](https://gowalker.org/github.com/seefan/gossdb)
+更多说明请见[这里](https://gowalker.org/github.com/zut/gossdb)
 
 所有的API基于ssdb的原始API用法，只针对go的特点增加部分方法。所以也可以参照官方文档使用。
 

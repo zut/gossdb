@@ -13,7 +13,7 @@ import (
 	"time"
 
 	"github.com/seefan/goerr"
-	"github.com/seefan/gossdb/conf"
+	"github.com/zut/gossdb/conf"
 )
 
 const (

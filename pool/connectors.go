@@ -10,10 +10,10 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/seefan/gossdb/client"
-	"github.com/seefan/gossdb/conf"
-	"github.com/seefan/gossdb/consts"
-	"github.com/seefan/gossdb/ssdbclient"
+	"github.com/zut/gossdb/client"
+	"github.com/zut/gossdb/conf"
+	"github.com/zut/gossdb/consts"
+	"github.com/zut/gossdb/ssdbclient"
 )
 
 //Connectors connection pool
@@ -248,6 +248,7 @@ func (c *Connectors) closeClient(client *Client) {
 func (c *Connectors) GetClient() *Client {
 	cc, err := c.NewClient()
 	if err == nil {
+		fmt.Printf("cc.used %v, cc.index %d\n", cc.used, cc.index)
 		return cc
 	}
 	cc = c.clientTemp.Get().(*Client)

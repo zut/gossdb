@@ -57,7 +57,7 @@
 //     // auto close
 //     AutoClose bool
 //
-//  More instructions please see [here] (https://gowalker.org/github.com/seefan/gossdb)
+//  More instructions please see [here] (https://gowalker.org/github.com/zut/gossdb)
 //
 //  All apis are essentially faithful to the original API usage of SSDB, with only a few methods added for go features. So you can also refer to the official //  documentation.
 //

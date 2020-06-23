@@ -7,20 +7,17 @@
 package main
 
 import (
+	"github.com/seefan/goerr"
+	"github.com/zut/gossdb"
+	"github.com/zut/gossdb/conf"
 	"log"
-	"math"
 	_ "net/http/pprof"
-	"sync"
-	"time"
-
-	"github.com/seefan/gossdb"
-	"github.com/seefan/gossdb/conf"
 )
 
 func main() {
 	p, err := gossdb.NewPool(&conf.Config{
 		Host:        "127.0.0.1",
-		Port:        8888,
+		Port:        10035,
 		MaxWaitSize: 10000,
 		PoolSize:    10,
 		MinPoolSize: 10,
@@ -29,6 +26,7 @@ func main() {
 		//Password:     "vdsfsfafapaddssrd#@Ddfasfdsfedssdfsdfsd",
 		HealthSecond: 1,
 	})
+	log.Println(11111111)
 	if err != nil {
 		panic(err)
 	}
@@ -40,29 +38,8 @@ func main() {
 	// 	}
 	// }()
 
-	var wait sync.WaitGroup
-	for i := 0; i < 10; i++ {
-		wait.Add(1)
-		go func() {
-			for k := 0; k < 100; k++ {
-
-				for j := 0; j < 100; j++ {
-
-					e := p.GetClient().Set("big", "ddddd")
-					if e == nil {
-						if _, e := p.GetClient().Get("big"); err != nil {
-							log.Println(e)
-						}
-					}
-				}
-				time.Sleep(time.Millisecond * time.Duration(math.Round(10)))
-				//println(p.Info())
-
-			}
-			wait.Done()
-		}()
-	}
-	wait.Wait()
+	err = p.GetClient().Set("big", "ddddd")
+	log.Println(goerr.Error(err).Trace())
 	//bs := make([]byte, 1)
 	//os.Stdin.Read(bs)
 }

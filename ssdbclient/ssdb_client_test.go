@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/seefan/gossdb/conf"
+	"github.com/zut/gossdb/conf"
 )
 
 func TestSSDBClient_ping(t *testing.T) {
