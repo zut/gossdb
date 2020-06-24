@@ -193,9 +193,8 @@ func (c *Connectors) getPool() *Pool {
 		}
 		cc.Client = *client.NewClient(sc, c.cfg.AutoClose, func() {
 			if cc.AutoClose {
-				fmt.Println("Close 1", cc.used, cc.index, c.Info())
 				cc.close()
-				fmt.Println("Close 2", cc.used, cc.index, c.Info())
+				fmt.Println("Close", cc.used, cc.index, c.Info())
 			}
 		})
 		return cc, nil
