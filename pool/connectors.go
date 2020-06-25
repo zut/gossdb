@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/zut/x/xlog"
 	"math"
 	"runtime"
 	"sync"
@@ -194,7 +195,6 @@ func (c *Connectors) getPool() *Pool {
 		cc.Client = *client.NewClient(sc, c.cfg.AutoClose, func() {
 			if cc.AutoClose {
 				cc.close()
-				fmt.Println(c.Info(), " *Close* ", cc.used, cc.index)
 			}
 		})
 		return cc, nil
@@ -219,6 +219,7 @@ func (c *Connectors) Start() (err error) {
 
 //回收Client
 func (c *Connectors) closeClient(client *Client) {
+	xlog.Debug("closeClient s1", client.index, c.Info(), "Skip6")
 	if c.status == consts.PoolStop {
 		if client.SSDBClient.IsOpen() {
 			_ = client.SSDBClient.Close()
@@ -239,6 +240,13 @@ func (c *Connectors) closeClient(client *Client) {
 			client.pool.status = consts.PoolCheck
 		}
 	}
+	parallel := atomic.LoadInt32(&c.parallel)
+	if parallel > 1 {
+		xlog.Warning("closeClient s2", client.index, c.Info(), "Skip6")
+	} else {
+		xlog.Debug("closeClient s2", client.index, c.Info(), "Skip6")
+	}
+
 }
 
 //GetClient gets an error-free connection and, if there is an error, returns when the connected function is called
@@ -249,7 +257,6 @@ func (c *Connectors) closeClient(client *Client) {
 func (c *Connectors) GetClient() *Client {
 	cc, err := c.NewClient()
 	if err == nil {
-		fmt.Println(c.Info(), " *GetClient* ", cc.used, cc.index)
 		return cc
 	}
 	cc = c.clientTemp.Get().(*Client)
